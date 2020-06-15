@@ -1,0 +1,37 @@
+import wollok.game.*
+import Manzana.*
+import prepararTablero.*
+import medico.*
+
+program abc {
+
+	game.title("Covid-19")
+	
+	game.height(5)
+	game.width(5)
+	
+	barrio.inicializarTablero()
+	game.addVisual(medico)
+	
+	keyboard.a().onPressDo({ barrio.pasarUnDia() })
+	keyboard.space().onPressDo({ game.say(medico, "Dia " + barrio.dia() + ",total de personas: "  
+		+ barrio.cantidadDePersonasTotales() + ", infectados: " + barrio.cantidadDePersonasInfectadas() + ", con síntomas: " + barrio.cantidadDePersonasConSintomas()
+	)})
+	
+	keyboard.e().onPressDo({ barrio.agregarExtranjero() })
+	
+	//Lo pongo como guia
+	keyboard.j().onPressDo({ game.say(medico, "Cantidad de infectados no aislados: " +barrio.cantidadDeInfectadosNoAislados()) })
+	keyboard.k().onPressDo({ game.say(medico, "Cantidad que respetan la cuarentena: "+ barrio.cuantosRespetanLaCuarentena()) })
+	
+	keyboard.up().onPressDo{ medico.subir() }
+	keyboard.down().onPressDo{ medico.bajar() }
+	keyboard.right().onPressDo{ medico.derecha() }
+	keyboard.left().onPressDo{ medico.izquierda() }
+	
+	keyboard.r().onPressDo({ medico.hacerRespetarLaCuarentena() })
+	keyboard.s().onPressDo({ medico.aislarATodosLosQueTienenSintomas() })
+	
+	game.start()
+
+}
